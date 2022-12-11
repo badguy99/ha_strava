@@ -16,6 +16,7 @@ from homeassistant.const import (
     SPEED_MILES_PER_HOUR,
     TIME_MINUTES,
 )
+from homeassistant.util.unit_system import METRIC_SYSTEM
 
 # custom module imports
 from .const import (
@@ -167,7 +168,7 @@ class StravaSummaryStatsSensor(Entity):
                 f"{round(self._data[CONF_SENSOR_DISTANCE]/1000,2)} {LENGTH_KILOMETERS}"
             )
 
-            if not self.hass.config.units.is_metric:
+            if not self.hass.config.units is METRIC_SYSTEM:
                 distance = f"{round(self._data[CONF_SENSOR_DISTANCE]*FACTOR_METER_TO_MILE,2)} {LENGTH_MILES}"
 
             return distance
@@ -325,7 +326,7 @@ class StravaStatsSensor(Entity):
                 f"{round(self._data[CONF_SENSOR_DISTANCE]/1000,2)} {LENGTH_KILOMETERS}"
             )
 
-            if not self.hass.config.units.is_metric:
+            if not self.hass.config.units is METRIC_SYSTEM:
                 distance = f"{round(self._data[CONF_SENSOR_DISTANCE]*FACTOR_METER_TO_MILE,2)} {LENGTH_MILES}"
 
             return distance
@@ -338,7 +339,7 @@ class StravaStatsSensor(Entity):
             else:
                 pace = 0
             unit = f"{TIME_MINUTES}/{LENGTH_KILOMETERS}"
-            if not self.hass.config.units.is_metric:
+            if not self.hass.config.units is METRIC_SYSTEM:
                 pace = (self._data[CONF_SENSOR_MOVING_TIME]) / (
                     self._data[CONF_SENSOR_DISTANCE] * FACTOR_METER_TO_MILE
                 )
@@ -353,7 +354,7 @@ class StravaStatsSensor(Entity):
         if metric == CONF_SENSOR_SPEED:
             speed = f"{round((self._data[CONF_SENSOR_DISTANCE]/1000)/(self._data[CONF_SENSOR_MOVING_TIME]/3600),2)} {SPEED_KILOMETERS_PER_HOUR}"
 
-            if not self.hass.config.units.is_metric:
+            if not self.hass.config.units is METRIC_SYSTEM:
                 speed = f"{round((self._data[CONF_SENSOR_DISTANCE]*FACTOR_METER_TO_MILE)/(self._data[CONF_SENSOR_MOVING_TIME]/3600),2)} {SPEED_MILES_PER_HOUR}"
             return speed
 
@@ -362,7 +363,7 @@ class StravaStatsSensor(Entity):
 
         if metric == CONF_SENSOR_ELEVATION:
             elevation = f"{round(self._data[CONF_SENSOR_ELEVATION],0)} {LENGTH_METERS}"
-            if not self.hass.config.units.is_metric:
+            if not self.hass.config.units is METRIC_SYSTEM:
                 elevation = f"{round(self._data[CONF_SENSOR_ELEVATION]*FACTOR_METER_TO_FEET,0)} {LENGTH_FEET}"
             return elevation
 
