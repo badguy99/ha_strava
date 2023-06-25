@@ -13,7 +13,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import config_entry_oauth2_flow, config_validation as cv
 from homeassistant.helpers.network import get_url, NoURLAvailableError
 from homeassistant.helpers.entity_registry import (
-    async_get_registry,
+    async_get as async_get_registry,
     async_entries_for_config_entry,
     RegistryEntryDisabler,
 )
